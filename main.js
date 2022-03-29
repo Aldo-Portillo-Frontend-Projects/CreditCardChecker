@@ -59,3 +59,20 @@ let validateCred = (arr) => {
 
 //console.log(validateCred(valid1));
 
+let findInvalidCards = (arr) =>{
+    let invalidCred = [];
+  
+    for (let i = 0; i < arr.length; i++){
+      if (validateCred(arr[i]) === false){
+        invalidCred.push(arr[i]);
+      }
+    }
+  
+    return invalidCred;
+  }
+  
+  
+  
+  //console.log(validateCred(valid1))
+  //console.log(findInvalidCards(batch));
+  
