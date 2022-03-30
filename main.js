@@ -21,33 +21,6 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5];
-/*
-let validateCred = (arr) => {
-    let sum = 0;
-  for (let i = arr.length -2 ; i >= 0; i-= 2){
-// Checks if digit in an array is between range to either multiply by two or multiply by two and divide by nine
-    if (arr[i] < 5){
-      arr[i] *= 2;
-    } else if (5 <= arr[i]){
-      arr[i] = (arr[i] * 2) - 9;
-    }
-
-    //Adds the alternating modified values to the total sum
-    sum += arr[i];
-  }
-
-    //Adds the unmodified values to the today sum(Array)
-  for (let i = arr.length -1; i >= 0; i-=2){
-    sum += arr[i];
-  }
-    //Checks if sum is divisible by 10
-  if (sum % 10 === 0){
-    return true;
-  } else {
-    return false;
-  }
-}
-*/
 
 let validateCred = (arr) => {
     let sum = 0;
@@ -78,15 +51,18 @@ let findInvalidCards = (arr) =>{
     //First for loop iterates through the 2D array and checks which cards are invalid and grabs index
     for (let i = 0; i < arr.length; i++){
       if (validateCred(arr[i]) === false){
-        invalidCredIndex.push(i);
+        invalidCred.push(arr[i]);
       }
-    //Second for loop matches the index witht the array
+      /*
+    //Second for loop matches the index with the array
     for(let j = 0; j < invalidCredIndex.length; j++){
         if (i === invalidCredIndex[j]){
             invalidCred.push(arr[i]);
             }
         }
+         */
     }
+   
     return invalidCred;
   }
   
@@ -94,5 +70,4 @@ let findInvalidCards = (arr) =>{
   
   //console.log(validateCred(valid1))
   console.log(findInvalidCards(batch));
-
 
