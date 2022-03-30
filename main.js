@@ -22,10 +22,8 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5];
 
-// luhn algo is a helper function created to reach the 3rd step of the algorithm to make the final function a conditional
-///Note to self: it would not hurt to place this inside the validate cred function
-let luhnAlgo = (arr) => {
-  let sum = 0;
+let validateCred = (arr) => {
+    let sum = 0;
   for (let i = arr.length -2 ; i >= 0; i-= 2){
 // Checks if digit in an array is between range to either multiply by two or multiply by two and divide by nine
     if (arr[i] < 5){
@@ -34,23 +32,16 @@ let luhnAlgo = (arr) => {
       arr[i] = (arr[i] * 2) - 9;
     }
 
-    //adds the alternating modded values together
+    //Adds the alternating modified values to the total sum
     sum += arr[i];
   }
 
-    //adds the stationary values together..couldve iterated forward, but I did not want to.. Might regret later
+    //Adds the unmodified values to the today sum
   for (let i = arr.length - 1; i >= 0; i-=2){
     sum += arr[i];
   }
-  //return arr;
-  return sum;
-}
-
-//console.log(luhnAlgo([0,1,2,3,4,5,6,7,8,9]));
-//console.log(luhnAlgo([4, 5, 3, 9, 6, 7, 7, 9, 0, 8, 0, 1, 6, 8, 0, 8]));
-
-let validateCred = (arr) => {
-  if (luhnAlgo(arr) % 10 === 0){
+    //Checks if sum is divisible by 10
+  if (sum % 10 === 0){
     return true;
   } else {
     return false;
@@ -60,19 +51,34 @@ let validateCred = (arr) => {
 //console.log(validateCred(valid1));
 
 let findInvalidCards = (arr) =>{
+    let invalidCredIndex = [];
+
     let invalidCred = [];
-  
+
+//Since our validating function is mutating, this loop gets the index of invalid cards only and stores them in an array.
     for (let i = 0; i < arr.length; i++){
       if (validateCred(arr[i]) === false){
-        invalidCred.push(arr[i]);
+        invalidCredIndex.push(i);
       }
     }
-  
+//this function loops through the index array created and the original array and creates an array with the non mutated values.
+//Note to self: Code clean up. You can probably add the second for liip after the if statement in the first loop and not create a second nested loop. 
+    for (let i = 0; i < arr.length; i++){
+        for(let j = 0; j < invalidCredIndex.length; j++){
+            if (i === invalidCredIndex[j]){
+                invalidCred.push(arr[i]);
+            }
+        }
+    }
+
     return invalidCred;
   }
   
   
   
   //console.log(validateCred(valid1))
-  //console.log(findInvalidCards(batch));
-  
+  console.log(findInvalidCards(batch));
+
+
+
+//Next commit: Joined functions with helper functions to clean up code and help find bugs
