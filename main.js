@@ -22,6 +22,11 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5];
 
+let stringToArr = (str)=>{
+  return str.split(',')
+}
+
+console.log(stringToArr('1,2,3,4,5,6,7,8,9'));
 let validateCred = (arr) => {
     let sum = 0;
     //Loop iterates backward through the array
@@ -93,5 +98,6 @@ let findInvalidCards = (arr) => {
     return companies;
   }
 
-console.log(idInvalidCardCompanies([valid4]));
-console.log(idInvalidCardCompanies(batch));
+//console.log(idInvalidCardCompanies([valid4]));
+//console.log(idInvalidCardCompanies(batch));
+
