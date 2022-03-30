@@ -21,7 +21,7 @@ const mystery5 = [4, 9, 1, 3, 5, 4, 0, 4, 6, 3, 0, 7, 2, 5, 2, 3];
 
 // An array of all the arrays above
 const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, invalid3, invalid4, invalid5, mystery1, mystery2, mystery3, mystery4, mystery5];
-
+/*
 let validateCred = (arr) => {
     let sum = 0;
   for (let i = arr.length -2 ; i >= 0; i-= 2){
@@ -36,8 +36,8 @@ let validateCred = (arr) => {
     sum += arr[i];
   }
 
-    //Adds the unmodified values to the today sum
-  for (let i = arr.length - 1; i >= 0; i-=2){
+    //Adds the unmodified values to the today sum(Array)
+  for (let i = arr.length -1; i >= 0; i-=2){
     sum += arr[i];
   }
     //Checks if sum is divisible by 10
@@ -47,30 +47,46 @@ let validateCred = (arr) => {
     return false;
   }
 }
+*/
 
+let validateCred = (arr) => {
+    let sum = 0;
+    //Loop iterates backward through the array
+    for (let i = arr.length - 1; i >= 0; i--) {
+
+      let currValue = arr[i]
+        //If statement checks to see if the index is even or odd and multiplies the number stored at that index by 2
+      if ((arr.length - 1 - i) % 2 === 1) {
+        currValue *= 2;
+        //Nested if statment checks to see if the number we multiplied is greater than 9 if so we subtract 9.
+        if (currValue > 9) {
+          currValue -= 9;
+        }
+      }
+      sum += currValue;
+    }
+    //A simpler way to write an if statement
+    return sum % 10 === 0;
+  
+  }
+  
 //console.log(validateCred(valid1));
 
 let findInvalidCards = (arr) =>{
     let invalidCredIndex = [];
-
     let invalidCred = [];
-
-//Since our validating function is mutating, this loop gets the index of invalid cards only and stores them in an array.
+    //First for loop iterates through the 2D array and checks which cards are invalid and grabs index
     for (let i = 0; i < arr.length; i++){
       if (validateCred(arr[i]) === false){
         invalidCredIndex.push(i);
       }
-    }
-//this function loops through the index array created and the original array and creates an array with the non mutated values.
-//Note to self: Code clean up. You can probably add the second for liip after the if statement in the first loop and not create a second nested loop. 
-    for (let i = 0; i < arr.length; i++){
-        for(let j = 0; j < invalidCredIndex.length; j++){
-            if (i === invalidCredIndex[j]){
-                invalidCred.push(arr[i]);
+    //Second for loop matches the index witht the array
+    for(let j = 0; j < invalidCredIndex.length; j++){
+        if (i === invalidCredIndex[j]){
+            invalidCred.push(arr[i]);
             }
         }
     }
-
     return invalidCred;
   }
   
@@ -80,5 +96,3 @@ let findInvalidCards = (arr) =>{
   console.log(findInvalidCards(batch));
 
 
-
-//Next commit: Joined functions with helper functions to clean up code and help find bugs
