@@ -45,29 +45,53 @@ let validateCred = (arr) => {
   
 //console.log(validateCred(valid1));
 
-let findInvalidCards = (arr) =>{
-    let invalidCredIndex = [];
-    let invalidCred = [];
-    //First for loop iterates through the 2D array and checks which cards are invalid and grabs index
-    for (let i = 0; i < arr.length; i++){
-      if (validateCred(arr[i]) === false){
-        invalidCred.push(arr[i]);
-      }
-      /*
-    //Second for loop matches the index with the array
-    for(let j = 0; j < invalidCredIndex.length; j++){
-        if (i === invalidCredIndex[j]){
-            invalidCred.push(arr[i]);
-            }
-        }
-         */
+let findInvalidCards = (arr) => {
+  let invalidCred = [];
+  //Iterates through the 2D array and checks which cards are invalid to push to new array
+  for (let i = 0; i < arr.length; i++){
+    if (validateCred(arr[i]) === false){
+      invalidCred.push(arr[i]);
     }
-   
-    return invalidCred;
   }
-  
-  
+  return invalidCred;
+}
   
   //console.log(validateCred(valid1))
-  console.log(findInvalidCards(batch));
+  //console.log(findInvalidCards(batch));
 
+
+  function idInvalidCardCompanies(invalidCred) {
+    const companies = [];
+    for (let i = 0; i < invalidCred.length; i++) {
+      //Checks if the first number in the array
+      switch (invalidCred[i][0]) {
+        case 3:
+          //Checks to see if the card exists in the companies array so we don't have duplicates
+          if (companies.indexOf('Amex') === -1) {
+            companies.push('Amex');
+          }
+          break
+        case 4:
+          if (companies.indexOf('Visa') === -1) {
+            companies.push('Visa');
+          }
+          break
+        case 5:
+          if (companies.indexOf('Mastercard') === -1) {
+            companies.push('Mastercard');
+          }
+          break
+        case 6:
+          if (companies.indexOf('Discover') === -1) {
+            companies.push('Discover');
+          }
+          break
+        default:
+          console.log('Company not found');
+      }
+    }
+    return companies;
+  }
+
+console.log(idInvalidCardCompanies([valid4]));
+console.log(idInvalidCardCompanies(batch));
